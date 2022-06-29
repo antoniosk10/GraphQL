@@ -1,19 +1,13 @@
 export const resolvers = {
   Query: {
     // returns an array of Tracks that will be used to populate the homepage grid of our web client
-    tracksForHome: (_: any, __: any, { dataSources }: any) => {
-      return dataSources.artistsService.getTracksForHome();
-    },
+    tracksForHome: (_: any, __: any, { dataSources }: any) => dataSources.artistsService.getTracksForHome(),
 
     // get a single track by ID, for the track page
-    track: (_: any, { id }: any, { dataSources }: any) => {
-      return dataSources.artistsService.getTrack(id);
-    },
+    track: (_: any, { id }: any, { dataSources }: any) => dataSources.artistsService.getTrack(id),
 
     // get a single module by ID, for the module detail page
-    module: (_: any, { id }: any, { dataSources }: any) => {
-      return dataSources.artistsService.getModule(id);
-    },
+    module: (_: any, { id }: any, { dataSources }: any) => dataSources.artistsService.getModule(id),
   },
   Mutation: {
     // increments a track's numberOfViews property
@@ -37,12 +31,8 @@ export const resolvers = {
     },
   },
   Track: {
-    author: ({ authorId }: any, _: any, { dataSources }: any) => {
-      return dataSources.artistsService.getAuthor(authorId);
-    },
+    author: ({ authorId }: any, _: any, { dataSources }: any) => dataSources.artistsService.getAuthor(authorId),
 
-    modules: ({ id }: any, _: any, { dataSources }: any) => {
-      return dataSources.artistsService.getTrackModules(id);
-    },
+    modules: ({ id }: any, _: any, { dataSources }: any) => dataSources.artistsService.getTrackModules(id),
   },
 };

@@ -9,5 +9,12 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint"],
-  rules: { singleQuote: false, "import/prefer-default-export": "off" },
+  rules: {
+    "import/prefer-default-export": "off",
+    quotes: 0,
+    "linebreak-style": [
+      "error",
+      process.platform === "win32" ? "windows" : "unix",
+    ],
+  },
 };
