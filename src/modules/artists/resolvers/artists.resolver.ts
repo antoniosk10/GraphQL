@@ -1,38 +1,24 @@
-export const resolvers = {
+export const ArtistsResolver = {
   Query: {
-    // returns an array of Tracks that will be used to populate the homepage grid of our web client
-    tracksForHome: (_: any, __: any, { dataSources }: any) => dataSources.artistsService.getTracksForHome(),
-
-    // get a single track by ID, for the track page
-    track: (_: any, { id }: any, { dataSources }: any) => dataSources.artistsService.getTrack(id),
-
-    // get a single module by ID, for the module detail page
-    module: (_: any, { id }: any, { dataSources }: any) => dataSources.artistsService.getModule(id),
+    artists: (_: any, __: any, { dataSources }: any) =>
+      dataSources.artistsService.getArtists(),
+    artist: (_: any, { id }: { id: string }, { dataSources }: any) =>
+      dataSources.artistsService.getArtist(id),
   },
-  Mutation: {
-    // increments a track's numberOfViews property
-    incrementTrackViews: async (_: any, { id }: any, { dataSources }: any) => {
-      try {
-        const track = await dataSources.artistsService.incrementTrackViews(id);
-        return {
-          code: 200,
-          success: true,
-          message: `Successfully incremented number of views for track ${id}`,
-          track,
-        };
-      } catch (err: any) {
-        return {
-          code: err.extensions.response.status,
-          success: false,
-          message: err.extensions.response.body,
-          track: null,
-        };
+
+  Artist: {
+    bands: ({ bandsIds }: any, _: any, { dataSources }: any) => {
+      if (bandsIds.length) {
+        return Promise.allSettled(
+          bandsIds.map((id: string) => dataSources.bandsService.getBand(id))
+        ).then((res) =>
+          (res as PromiseFulfilledResult<any>[]).map((item) => ({
+            ...item.value,
+            id: item.value._id,
+          }))
+        );
       }
+      return bandsIds;
     },
-  },
-  Track: {
-    author: ({ authorId }: any, _: any, { dataSources }: any) => dataSources.artistsService.getAuthor(authorId),
-
-    modules: ({ id }: any, _: any, { dataSources }: any) => dataSources.artistsService.getTrackModules(id),
   },
 };
