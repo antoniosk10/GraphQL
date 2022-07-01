@@ -1,3 +1,8 @@
+type Query {
+  albums: [Artist]
+  album(id: ID!): Artist
+}
+
 type Album {
   id: ID!
   name: String

@@ -1,3 +1,8 @@
+type Query {
+  tracks: [Genre]
+  track(id: ID!): Genre
+}
+
 type Track {
   id: ID!
   title: String!

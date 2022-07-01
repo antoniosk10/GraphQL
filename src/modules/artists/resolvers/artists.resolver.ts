@@ -1,4 +1,6 @@
-export const ArtistsResolver = {
+import { getObjectsByIds } from "../../../utils/getObjectsByIds";
+
+export const artistsResolver = {
   Query: {
     artists: (_: any, __: any, { dataSources }: any) =>
       dataSources.artistsService.getArtists(),
@@ -9,13 +11,9 @@ export const ArtistsResolver = {
   Artist: {
     bands: ({ bandsIds }: any, _: any, { dataSources }: any) => {
       if (bandsIds.length) {
-        return Promise.allSettled(
-          bandsIds.map((id: string) => dataSources.bandsService.getBand(id))
-        ).then((res) =>
-          (res as PromiseFulfilledResult<any>[]).map((item) => ({
-            ...item.value,
-            id: item.value._id,
-          }))
+        return getObjectsByIds(
+          bandsIds,
+          dataSources.bandsService.getBand.bind(dataSources.bandsService)
         );
       }
       return bandsIds;

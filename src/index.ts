@@ -7,19 +7,16 @@ import { ApolloServer } from "apollo-server-express";
 import "dotenv/config";
 import express from "express";
 import http from "http";
-import { ArtistsResolver, BandsResolver } from "./modules/resolvers";
-import { artistsService, bandsService } from "./modules/services";
+import resolvers from "./modules/resolvers";
+import services from "./modules/services";
 
 async function startApolloServer() {
   const app = express();
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     typeDefs: await loadFiles("src/**/*.graphql"),
-    resolvers: [ArtistsResolver, BandsResolver],
-    dataSources: () => ({
-      artistsService,
-      bandsService,
-    }),
+    resolvers,
+    dataSources: () => services,
     csrfPrevention: true,
     cache: "bounded",
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],

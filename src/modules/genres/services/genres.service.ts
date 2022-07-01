@@ -1,24 +1,23 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 
-class BandsService extends RESTDataSource {
+class GenresService extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = process.env.BANDS_URL;
+    this.baseURL = process.env.GENRES_URL;
   }
 
-  getBands() {
+  getGenres() {
     return this.get("/").then((res) =>
       res.items.map((item: any) => ({
         ...item,
         id: item._id,
-        genres: item.genresIds,
       }))
     );
   }
 
-  getBand(id: string) {
+  getGenre(id: string) {
     return this.get(`/${id}`);
   }
 }
 
-export const bandsService = new BandsService();
+export const genresService = new GenresService();
