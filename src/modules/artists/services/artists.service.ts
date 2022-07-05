@@ -19,6 +19,10 @@ class ArtistsService extends RESTDataSource {
   getArtist(id: string) {
     return this.get(`/${id}`);
   }
+
+  getArtistByIds(arrayIds: Array<string>) {
+    return Promise.allSettled(arrayIds.map((id: string) => this.getArtist(id)));
+  }
 }
 
 export const artistsService = new ArtistsService();

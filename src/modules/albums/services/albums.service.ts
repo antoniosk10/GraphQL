@@ -1,4 +1,6 @@
 import { RESTDataSource } from "apollo-datasource-rest";
+import { Pagination } from "../../types";
+import { InputAlbum } from "../albums.types";
 
 class AlbumsService extends RESTDataSource {
   constructor() {
@@ -6,21 +8,24 @@ class AlbumsService extends RESTDataSource {
     this.baseURL = process.env.ALBUMS_URL;
   }
 
-  getAlbums() {
-    return this.get("/").then((res) =>
-      res.items.map((item: any) => ({
-        ...item,
-        id: item._id,
-        tracks: item.trackIds,
-        bands: item.bandsIds,
-        artists: item.artistsIds,
-        genres: item.genresIds,
-      }))
-    );
+  getAlbums(pagination: Pagination) {
+    return this.get("", { ...pagination }).then((res) => res.items);
   }
 
   getAlbum(id: string) {
     return this.get(`/${id}`);
+  }
+
+  createAlbum(input: InputAlbum) {
+    return this.post("", { ...input });
+  }
+
+  updateAlbum(id: string, input: InputAlbum) {
+    return this.put(`/${id}`, { ...input });
+  }
+
+  deleteAlbum(id: string) {
+    return this.delete(`/${id}`);
   }
 }
 

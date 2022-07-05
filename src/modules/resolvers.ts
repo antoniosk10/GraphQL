@@ -3,6 +3,7 @@ import { bandsResolver } from "./bands/resolvers/bands.resolver";
 import { genresResolver } from "./genres/resolvers/genres.resolver";
 import { tracksResolver } from "./tracks/resolvers/tracks.resolver";
 import { albumsResolver } from "./albums/resolvers/albums.resolver";
+import { userResolver } from "./user/resolvers/user.resolver";
 
 export default [
   artistsResolver,
@@ -10,4 +11,5 @@ export default [
   genresResolver,
   tracksResolver,
   albumsResolver,
+  userResolver,
 ];

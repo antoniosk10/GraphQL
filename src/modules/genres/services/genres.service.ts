@@ -18,6 +18,10 @@ class GenresService extends RESTDataSource {
   getGenre(id: string) {
     return this.get(`/${id}`);
   }
+
+  getGenresByIds(arrayIds: Array<string>) {
+    return Promise.allSettled(arrayIds.map((id: string) => this.getGenre(id)));
+  }
 }
 
 export const genresService = new GenresService();

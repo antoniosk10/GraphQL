@@ -1,48 +1,51 @@
-import { getObjectsByIds } from "../../../utils/getObjectsByIds";
+import { Pagination } from "../../types";
+import { InputAlbum } from "../albums.types";
 
 export const albumsResolver = {
   Query: {
-    albums: (_: any, __: any, { dataSources }: any) =>
-      dataSources.tracksService.getAlbums(),
+    albums: (
+      _: any,
+      { pagination }: { pagination: Pagination },
+      { dataSources }: any
+    ) => dataSources.albumsService.getAlbums(pagination),
     album: (_: any, { id }: { id: string }, { dataSources }: any) =>
-      dataSources.tracksService.getAlbum(id),
+      dataSources.albumsService.getAlbum(id),
   },
-  Track: {
-    bands: ({ bandsIds }: any, _: any, { dataSources }: any) => {
-      if (bandsIds.length) {
-        return getObjectsByIds(
-          bandsIds,
-          dataSources.bandsService.getBand.bind(dataSources.bandsService)
-        );
-      }
-      return bandsIds;
-    },
-    artists: ({ artistsIds }: any, _: any, { dataSources }: any) => {
-      if (artistsIds.length) {
-        return getObjectsByIds(
-          artistsIds,
-          dataSources.artistsService.getArtist.bind(dataSources.artistsService)
-        );
-      }
-      return artistsIds;
-    },
-    tracks: ({ tracksIds }: any, _: any, { dataSources }: any) => {
-      if (tracksIds.length) {
-        return getObjectsByIds(
-          tracksIds,
-          dataSources.tracksService.getTrack.bind(dataSources.tracksService)
-        );
-      }
-      return tracksIds;
-    },
-    genres: ({ genresIds }: any, _: any, { dataSources }: any) => {
-      if (genresIds.length) {
-        return getObjectsByIds(
-          genresIds,
-          dataSources.genresService.getGenre.bind(dataSources.genresService)
-        );
-      }
-      return genresIds;
-    },
+  Mutation: {
+    createAlbum: (
+      _: any,
+      { input }: { input: InputAlbum },
+      { dataSources }: any
+    ) => dataSources.albumsService.createAlbum(input),
+    deleteAlbum: (_: any, { id }: any, { dataSources }: any) =>
+      dataSources.albumsService.deleteAlbum(id),
+    updateAlbum: (
+      _: any,
+      { id, input }: { id: string; input: InputAlbum },
+      { dataSources }: any
+    ) => dataSources.albumsService.updateAlbum(id, input),
+  },
+  Album: {
+    id: ({ _id }: { _id: string }) => _id,
+    bands: (
+      { bandsIds }: { bandsIds: Array<string> },
+      _: any,
+      { dataSources }: any
+    ) => dataSources.bandsService.getBandsByIds(bandsIds),
+    artists: (
+      { artistsIds }: { artistsIds: Array<string> },
+      _: any,
+      { dataSources }: any
+    ) => dataSources.artistsService.getArtistsByIds(artistsIds),
+    tracks: (
+      { tracksIds }: { tracksIds: Array<string> },
+      _: any,
+      { dataSources }: any
+    ) => dataSources.tracksService.getTracksByIds(tracksIds),
+    genres: (
+      { genresIds }: { genresIds: Array<string> },
+      _: any,
+      { dataSources }: any
+    ) => dataSources.genresService.getGenresByIds(genresIds),
   },
 };

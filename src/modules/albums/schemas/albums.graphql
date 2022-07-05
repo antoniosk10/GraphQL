@@ -1,15 +1,31 @@
 type Query {
-  albums: [Artist]
-  album(id: ID!): Artist
+  albums(pagination: Pagination): [Album]
+  album(id: ID!): Album
+}
+
+type Mutation {
+  createAlbum(input: InputAlbum!): Album
+  updateAlbum(id: String!, input: InputAlbum!): Album
+  deleteAlbum(id: ID!): Artist
 }
 
 type Album {
   id: ID!
-  name: String
+  name: String!
   released: Int
   artists: [Artist]
   bands: [Band]
   tracks: [Track]
   genres: [Genre]
+  image: String
+}
+
+input InputAlbum {
+  name: String!
+  released: Int
+  artistsIds: [ID]
+  bandsIds: [ID]
+  tracksIds: [ID]
+  genresIds: [ID]
   image: String
 }

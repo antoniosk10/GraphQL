@@ -1,5 +1,3 @@
-import { getObjectsByIds } from "../../../utils/getObjectsByIds";
-
 export const bandsResolver = {
   Query: {
     bands: (_: any, __: any, { dataSources }: any) =>
@@ -8,14 +6,6 @@ export const bandsResolver = {
       dataSources.bandsService.getBand(id),
   },
   Band: {
-    genres: ({ genresIds }: any, _: any, { dataSources }: any) => {
-      if (genresIds.length) {
-        return getObjectsByIds(
-          genresIds,
-          dataSources.genresService.getGenre.bind(dataSources.genresService)
-        );
-      }
-      return genresIds;
-    },
+    id: ({ _id }: { _id: string }) => _id,
   },
 };

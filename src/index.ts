@@ -22,7 +22,7 @@ async function startApolloServer() {
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     context: ({ req }) => {
       const token = req.headers.authorization;
-      if (!token) throw new AuthenticationError("you must be logged in");
+      // if (!token) throw new AuthenticationError("you must be logged in");
       return { token };
     },
   });
