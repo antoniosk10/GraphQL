@@ -3,13 +3,27 @@ type Query {
   band(id: ID!): Band
 }
 
+type Mutation {
+  createBand(input: InputBand!): Band
+  updateBand(id: ID!, input: InputBand!): Band
+  deleteBand(id: ID!): deleteResponse
+}
+
 type Band {
-  id: ID!
+  id: ID
   name: String
   origin: String
   members: [Member]
   website: String
   genres: [Genre]
+}
+
+input InputBand {
+  name: String!
+  origin: String
+  members: [ID]
+  website: String
+  genres: [ID]
 }
 
 type Member {

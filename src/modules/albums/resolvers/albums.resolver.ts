@@ -7,23 +7,23 @@ export const albumsResolver = {
       _: any,
       { pagination }: { pagination: Pagination },
       { dataSources }: any
-    ) => dataSources.albumsService.getAlbums(pagination),
+    ) => dataSources.albumsService.getItems(pagination),
     album: (_: any, { id }: { id: string }, { dataSources }: any) =>
-      dataSources.albumsService.getAlbum(id),
+      dataSources.albumsService.getItem(id),
   },
   Mutation: {
     createAlbum: (
       _: any,
       { input }: { input: InputAlbum },
       { dataSources }: any
-    ) => dataSources.albumsService.createAlbum(input),
-    deleteAlbum: (_: any, { id }: any, { dataSources }: any) =>
-      dataSources.albumsService.deleteAlbum(id),
+    ) => dataSources.albumsService.createItem(input),
+    deleteAlbum: (_: any, { id }: { id: string }, { dataSources }: any) =>
+      dataSources.albumsService.deleteItem(id),
     updateAlbum: (
       _: any,
       { id, input }: { id: string; input: InputAlbum },
       { dataSources }: any
-    ) => dataSources.albumsService.updateAlbum(id, input),
+    ) => dataSources.albumsService.updateItem(id, input),
   },
   Album: {
     id: ({ _id }: { _id: string }) => _id,

@@ -4,7 +4,15 @@ type Query {
 }
 
 type Mutation {
-  register(input: UserInput): User
+  register(input: UserInput!): User
+}
+
+type User {
+  id: ID
+  firstName: String
+  secondName: String
+  password: String
+  email: String
 }
 
 input UserInput {
@@ -16,14 +24,6 @@ input UserInput {
   favouriteSongsIds: [String]
   favouriteBandsIds: [String]
   favouriteGenresIds: [String]
-}
-
-type User {
-  id: ID!
-  firstName: String!
-  secondName: String!
-  password: String!
-  email: String!
 }
 
 type JWT {

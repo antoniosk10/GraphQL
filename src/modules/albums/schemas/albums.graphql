@@ -5,13 +5,13 @@ type Query {
 
 type Mutation {
   createAlbum(input: InputAlbum!): Album
-  updateAlbum(id: String!, input: InputAlbum!): Album
-  deleteAlbum(id: ID!): Artist
+  updateAlbum(id: ID!, input: InputAlbum!): Album
+  deleteAlbum(id: ID!): deleteResponse
 }
 
 type Album {
-  id: ID!
-  name: String!
+  id: ID
+  name: String
   released: Int
   artists: [Artist]
   bands: [Band]

@@ -1,8 +1,5 @@
 import { loadFiles } from "@graphql-tools/load-files";
-import {
-  ApolloServerPluginLandingPageGraphQLPlayground,
-  AuthenticationError,
-} from "apollo-server-core";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-express";
 import "dotenv/config";
 import express from "express";
@@ -22,7 +19,6 @@ async function startApolloServer() {
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     context: ({ req }) => {
       const token = req.headers.authorization;
-      // if (!token) throw new AuthenticationError("you must be logged in");
       return { token };
     },
   });

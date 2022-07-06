@@ -1,3 +1,5 @@
+import { InputBand } from "../bands.types";
+
 export const bandsResolver = {
   Query: {
     bands: (_: any, __: any, { dataSources }: any) =>
@@ -5,7 +7,28 @@ export const bandsResolver = {
     band: (_: any, { id }: { id: string }, { dataSources }: any) =>
       dataSources.bandsService.getBand(id),
   },
+
+  Mutation: {
+    createBand: (
+      _: any,
+      { input }: { input: InputBand },
+      { dataSources }: any
+    ) => dataSources.bandsService.createItem(input),
+    deleteBand: (_: any, { id }: { id: string }, { dataSources }: any) =>
+      dataSources.bandsService.deleteItem(id),
+    updateBand: (
+      _: any,
+      { id, input }: { id: string; input: InputBand },
+      { dataSources }: any
+    ) => dataSources.bandsService.updateItem(id, input),
+  },
+
   Band: {
     id: ({ _id }: { _id: string }) => _id,
+    genres: (
+      { genresIds }: { genresIds: Array<string> },
+      _: any,
+      { dataSources }: any
+    ) => dataSources.genresService.getGenresByIds(genresIds),
   },
 };

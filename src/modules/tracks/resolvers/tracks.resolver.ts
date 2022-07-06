@@ -1,29 +1,50 @@
+import { Pagination } from "../../types";
+import { InputTrack } from "../tracks.types";
+
 export const tracksResolver = {
   Query: {
-    tracks: (_: any, __: any, { dataSources }: any) =>
-      dataSources.tracksService.getTracks(),
+    tracks: (
+      _: any,
+      { pagination }: { pagination: Pagination },
+      { dataSources }: any
+    ) => dataSources.tracksService.getItems(pagination),
     track: (_: any, { id }: { id: string }, { dataSources }: any) =>
-      dataSources.tracksService.getTrack(id),
+      dataSources.tracksService.getItem(id),
   },
+
+  Mutation: {
+    createTrack: (
+      _: any,
+      { input }: { input: InputTrack },
+      { dataSources }: any
+    ) => dataSources.tracksService.createItem(input),
+    deleteTrack: (_: any, { id }: { id: string }, { dataSources }: any) =>
+      dataSources.tracksService.deleteItem(id),
+    updateTrack: (
+      _: any,
+      { id, input }: { id: string; input: InputTrack },
+      { dataSources }: any
+    ) => dataSources.tracksService.updateItem(id, input),
+  },
+
   Track: {
     bands: (
       { bandsIds }: { bandsIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.bandsService.getBandsByIds(bandsIds),
+    ) => dataSources.bandsService.getItemsByIds(bandsIds),
     artists: (
       { artistsIds }: { artistsIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.artistsService.getArtistsByIds(artistsIds),
-
+    ) => dataSources.artistsService.getItemsByIds(artistsIds),
     genres: (
       { genresIds }: { genresIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.genresService.getGenresByIds(genresIds),
+    ) => dataSources.genresService.getItemsByIds(genresIds),
     album: ({ albumId }: any, _: any, { dataSources }: any) => {
-      dataSources.albumsService.getAlbum(albumId);
+      dataSources.albumsService.getItem(albumId);
     },
   },
 };

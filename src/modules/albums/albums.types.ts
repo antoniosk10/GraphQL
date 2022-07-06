@@ -5,5 +5,5 @@ export type InputAlbum = {
   bands?: Array<string>;
   tracks?: Array<string>;
   genres?: Array<string>;
-  image: string;
+  image?: string;
 };

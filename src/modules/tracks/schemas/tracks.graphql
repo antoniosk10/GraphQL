@@ -3,13 +3,29 @@ type Query {
   track(id: ID!): Genre
 }
 
+type Mutation {
+  createTrack(input: InputTrack!): Track
+  updateTrack(id: ID!, input: InputTrack!): Track
+  deleteTrack(id: ID!): deleteResponse
+}
+
 type Track {
-  id: ID!
-  title: String!
+  id: ID
+  title: String
   album: Album
   artists: [Artist]
   bands: [Band]
   duration: Int
   released: Int
   genres: [Genre]
+}
+
+input InputTrack {
+  title: String!
+  album: Album
+  artists: [ID]
+  bands: [ID]
+  duration: Int
+  released: Int
+  genres: [ID]
 }
