@@ -18,7 +18,7 @@ type Artist {
   birthPlace: String
   country: String
   bands: [Band]
-  instruments: String
+  instruments: [String]
 }
 
 input InputArtist {
@@ -29,5 +29,5 @@ input InputArtist {
   birthPlace: String
   country: String!
   bands: [ID]
-  instruments: String
+  instruments: [String]
 }

@@ -5,3 +5,9 @@ export type InputBand = {
   website?: String;
   genres?: Array<string>;
 };
+
+export type Members = {
+  artist: string;
+  instrument?: string;
+  years?: Array<string>;
+}[];

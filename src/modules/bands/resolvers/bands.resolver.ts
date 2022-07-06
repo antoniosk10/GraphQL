@@ -1,11 +1,12 @@
-import { InputBand } from "../bands.types";
+import { Artist } from "../../artists/artists.types";
+import { InputBand, Members } from "../bands.types";
 
 export const bandsResolver = {
   Query: {
     bands: (_: any, __: any, { dataSources }: any) =>
-      dataSources.bandsService.getBands(),
+      dataSources.bandsService.getItems(),
     band: (_: any, { id }: { id: string }, { dataSources }: any) =>
-      dataSources.bandsService.getBand(id),
+      dataSources.bandsService.getItem(id),
   },
 
   Mutation: {
@@ -29,6 +30,27 @@ export const bandsResolver = {
       { genresIds }: { genresIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.genresService.getGenresByIds(genresIds),
+    ) => dataSources.genresService.getItemsByIds(genresIds),
+    members: (
+      { members }: { members: Members },
+      _: any,
+      { dataSources }: any
+    ) =>
+      Promise.allSettled(
+        members.map(({ artist }: { artist: string }) =>
+          dataSources.artistsService.getItem(artist)
+        )
+      ).then((res) =>
+        res.map((item, index) => {
+          const { value } = item as unknown as PromiseFulfilledResult<Artist>;
+          return {
+            firstName: value.firstName,
+            secondName: value.secondName,
+            middleName: value.middleName,
+            instrument: members[index].instrument,
+            years: members[index].years,
+          };
+        })
+      ),
   },
 };

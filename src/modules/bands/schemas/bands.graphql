@@ -21,13 +21,22 @@ type Band {
 input InputBand {
   name: String!
   origin: String
-  members: [ID]
+  members: [InputMember]
   website: String
   genres: [ID]
 }
 
 type Member {
-  artist: String
+  id: ID
+  firstName: String
+  secondName: String
+  middleName: String
+  instrument: String
+  years: [String]
+}
+
+input InputMember {
+  artist: ID!
   instrument: String
   years: [String]
 }
