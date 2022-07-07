@@ -4,6 +4,7 @@ import { genresResolver } from "./genres/resolvers/genres.resolver";
 import { tracksResolver } from "./tracks/resolvers/tracks.resolver";
 import { albumsResolver } from "./albums/resolvers/albums.resolver";
 import { userResolver } from "./user/resolvers/user.resolver";
+import { favoritesResolver } from "./favorites/resolvers/favorites.resolver";
 
 export default [
   artistsResolver,
@@ -12,4 +13,5 @@ export default [
   tracksResolver,
   albumsResolver,
   userResolver,
+  favoritesResolver,
 ];

@@ -31,21 +31,21 @@ export const albumsResolver = {
       { bandsIds }: { bandsIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.bandsService.getBandsByIds(bandsIds),
+    ) => dataSources.bandsService.getItemsByIds(bandsIds),
     artists: (
       { artistsIds }: { artistsIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.artistsService.getArtistsByIds(artistsIds),
+    ) => dataSources.artistsService.getItemsByIds(artistsIds),
     tracks: (
       { tracksIds }: { tracksIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.tracksService.getTracksByIds(tracksIds),
+    ) => dataSources.tracksService.getItemsByIds(tracksIds),
     genres: (
       { genresIds }: { genresIds: Array<string> },
       _: any,
       { dataSources }: any
-    ) => dataSources.genresService.getGenresByIds(genresIds),
+    ) => dataSources.genresService.getItemsByIds(genresIds),
   },
 };

@@ -28,6 +28,7 @@ export const tracksResolver = {
   },
 
   Track: {
+    id: ({ _id }: { _id: string }) => _id,
     bands: (
       { bandsIds }: { bandsIds: Array<string> },
       _: any,

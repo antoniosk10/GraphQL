@@ -22,18 +22,6 @@ class UserService extends RESTDataSource {
       ...input,
     });
   }
-
-  verify(token: string) {
-    return this.post(
-      "/verify",
-      {},
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    );
-  }
 }
 
 export const userService = new UserService();

@@ -26,4 +26,8 @@ export const genresResolver = {
       { dataSources }: any
     ) => dataSources.genresService.updateItem(id, input),
   },
+
+  Genre: {
+    id: ({ _id }: { _id: string }) => _id,
+  },
 };

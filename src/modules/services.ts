@@ -4,6 +4,7 @@ import { genresService } from "./genres/services/genres.service";
 import { tracksService } from "./tracks/services/tracks.service";
 import { albumsService } from "./albums/services/albums.service";
 import { userService } from "./user/services/user.service";
+import { favoritesService } from "./favorites/services/favorites.service";
 
 export default {
   artistsService,
@@ -12,4 +13,5 @@ export default {
   tracksService,
   albumsService,
   userService,
+  favoritesService,
 };

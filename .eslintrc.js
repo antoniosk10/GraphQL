@@ -16,5 +16,7 @@ module.exports = {
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "linebreak-style": [0, process.platform === "win32" ? "windows" : "unix"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
   },
 };
