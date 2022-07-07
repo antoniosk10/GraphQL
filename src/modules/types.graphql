@@ -1,0 +1,9 @@
+input Pagination {
+  limit: Int
+  offset: Int
+}
+
+type deleteResponse {
+  acknowledged: Boolean
+  deletedCount: Int
+}
